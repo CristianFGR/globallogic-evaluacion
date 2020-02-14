@@ -32,7 +32,7 @@ public class UserContact extends AuditUser {
     @Size(min = 5, message = "the minimum length for the password allowed is 5 characters")
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userContact")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "userContact")
     @JsonProperty("phones")
     private List<UserInformation> userInformations;
 

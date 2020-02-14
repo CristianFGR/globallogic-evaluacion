@@ -1,5 +1,7 @@
 package com.globallogic.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -25,6 +27,7 @@ public class UserInformation {
 
     @ManyToOne
     @JoinColumn(name = "fk_id_usercontact")
+    @JsonIgnore()
     private UserContact userContact;
 
     public UserInformation() {
