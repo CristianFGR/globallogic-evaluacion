@@ -25,7 +25,10 @@ public class UserInformation {
 
     @ManyToOne
     @JoinColumn(name = "fk_id_usercontact")
-    private UserContact userContac;
+    private UserContact userContact;
+
+    public UserInformation() {
+    }
 
     public String getNumber() {
         return number;
@@ -51,12 +54,11 @@ public class UserInformation {
         this.countryCode = countryCode;
     }
 
-    @Override
-    public String toString() {
-        return "UserInformation{" +
-                "number='" + number + '\'' +
-                ", cityCode='" + cityCode + '\'' +
-                ", countryCode='" + countryCode + '\'' +
-                '}';
+    public UserContact getUserContact() {
+        return userContact;
+    }
+
+    public void setUserContact(UserContact userContact) {
+        this.userContact = userContact;
     }
 }
