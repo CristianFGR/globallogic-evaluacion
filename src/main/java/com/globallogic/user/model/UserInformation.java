@@ -1,5 +1,7 @@
 package com.globallogic.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -25,7 +27,11 @@ public class UserInformation {
 
     @ManyToOne
     @JoinColumn(name = "fk_id_usercontact")
-    private UserContact userContac;
+    @JsonIgnore()
+    private UserContact userContact;
+
+    public UserInformation() {
+    }
 
     public String getNumber() {
         return number;
@@ -51,12 +57,11 @@ public class UserInformation {
         this.countryCode = countryCode;
     }
 
-    @Override
-    public String toString() {
-        return "UserInformation{" +
-                "number='" + number + '\'' +
-                ", cityCode='" + cityCode + '\'' +
-                ", countryCode='" + countryCode + '\'' +
-                '}';
+    public UserContact getUserContact() {
+        return userContact;
+    }
+
+    public void setUserContact(UserContact userContact) {
+        this.userContact = userContact;
     }
 }

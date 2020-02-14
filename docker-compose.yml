@@ -1,0 +1,47 @@
+version: '3.3'
+
+#Define services
+services:
+
+  app-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    restart: always
+    depends_on:
+      - db
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/users_app?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - backend
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'users_app'
+      MYSQL_USER: 'user'
+      MYSQL_USER_PASSWORD: '1234'
+      MYSQL_ROOT_PASSWORD: '1234'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  my-db:
+
+networks:
+  backend:
+
